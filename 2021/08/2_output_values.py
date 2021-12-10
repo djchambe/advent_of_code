@@ -32,16 +32,16 @@ def get_digit_letters(digit, compare, digit_map):
 
 def get_digit_map(signal_list):
     digit_map = {
-        0: {'length': 6, 'letters': [], 'contains': [1, 7]},
-        1: {'length': 2, 'letters': [], 'contains': []},
-        2: {'length': 5, 'letters': [], 'contains': []},
-        3: {'length': 5, 'letters': [], 'contains': [1, 7]},
-        4: {'length': 4, 'letters': [], 'contains': [1]},
-        5: {'length': 5, 'letters': [], 'contains': []},
-        6: {'length': 6, 'letters': [], 'contains': [5]},
-        7: {'length': 3, 'letters': [], 'contains': [1]},
-        8: {'length': 7, 'letters': [], 'contains': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]},
-        9: {'length': 6, 'letters': [], 'contains': [1, 3, 4, 5, 7]}
+        0: {'length': 6, 'letters': []},
+        1: {'length': 2, 'letters': []},
+        2: {'length': 5, 'letters': []},
+        3: {'length': 5, 'letters': []},
+        4: {'length': 4, 'letters': []},
+        5: {'length': 5, 'letters': []},
+        6: {'length': 6, 'letters': []},
+        7: {'length': 3, 'letters': []},
+        8: {'length': 7, 'letters': []},
+        9: {'length': 6, 'letters': []}
     }
     for signal in signal_list:
         signal_length = len(signal)
@@ -49,13 +49,9 @@ def get_digit_map(signal_list):
             if info['length'] == signal_length:
                 info['letters'].append(signal)
     digit_map = get_digit_letters(9, 4, digit_map)
-    digit_map=  get_digit_letters(0, 1, digit_map)
-    if len(digit_map[6]['letters']) != 1:
-        print(f'Fix 6 algorithm, {digit_map}')
+    digit_map = get_digit_letters(0, 1, digit_map)
     digit_map = get_digit_letters_reverse(5, 6, digit_map)
     digit_map = get_digit_letters(3, 1, digit_map)
-    if len(digit_map[2]['letters']) != 1:
-        print(f'Fix 2 algorithm, {digit_map}')
     
     return digit_map
 
@@ -70,8 +66,6 @@ def get_output_number(digit_map, output_list):
             if number_string_list == digit_string_list:
                 digit_list.append(digit)
                 break
-    if len(digit_list) != 4:
-        print(f'{digit_list} is not four digits long')
     output_number = 0
     for index, digit in enumerate(digit_list):
         output_number += 10**(3-index)*digit
