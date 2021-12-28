@@ -2,23 +2,24 @@ from datetime import datetime
 from collections import deque
 from copy import deepcopy
 
-def shift_scanner_beacons(scanner):
-    adjustments = scanner.get('adjustments', {})
-    beacons = scanner['beacons']
-    if adjustments:
-        return get_shifted_beacons(beacons, [0, 0, 0], adjustments)
+def calculate_manhattan_distance(position_1, position_2):
+    manhattan_distance = 0
+    for i in range(len(position_1[1])):
+        manhattan_distance += abs(position_1[1][i] - position_2[1][i])
     
-    return beacons
+    return manhattan_distance
 
-def get_unique_beacons(scanners):
-    unique_beacons = []
-    for scanner in scanners.values():
-        scanner_beacons = shift_scanner_beacons(scanner)
-        for beacon in scanner_beacons:
-            if beacon not in unique_beacons:
-                unique_beacons.append(beacon)
-
-    return unique_beacons
+def get_largest_manhattan_distance(positions):
+    max_distance = 0
+    for i in range(len(positions)):
+        for j in range(len(positions)):
+            if i == j:
+                continue
+            distance = calculate_manhattan_distance(positions[i], positions[j])
+            if distance > max_distance:
+                max_distance = distance
+    
+    return max_distance
 
 def get_same_beacons_count(beacons_1, beacons_2):
     same = 0
@@ -153,16 +154,14 @@ def get_positions(scanners):
     
     return positions
 
-def count_beacons(scanners):
+def find_largest_manhattan_distance(scanners):
     positions = get_positions(scanners)
     compares = []
     while len(positions) < len(scanners):
         scanners, compares = find_unknown_scanners(scanners, positions, compares)
         positions = get_positions(scanners)
     
-    unique_beacons = get_unique_beacons(scanners)
-
-    return len(unique_beacons)
+    return get_largest_manhattan_distance(positions)
 
 def handler():
     print(f'Start: {datetime.now()}')
@@ -180,7 +179,7 @@ def handler():
                 beacon_coordinates = clean_line.split(',')
                 scanners[count]['beacons'].append(deque([int(coordinate) for coordinate in beacon_coordinates], maxlen=3))
     
-    answer = count_beacons(scanners)
+    answer = find_largest_manhattan_distance(scanners)
     
     print(f'The answer is {answer}')
     print(f'End: {datetime.now()}')
