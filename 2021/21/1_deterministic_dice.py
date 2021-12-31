@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def move(position, roll):
     position += roll
     position = position % 10
@@ -37,6 +39,7 @@ def play_dirac_dice(positions):
     return min(scores)*die_values[1]
     
 def handler():
+    print(f'Start: {datetime.now()}')
     starting_positions = []
     with open('input.txt') as input_file:
         for line in input_file:
@@ -46,6 +49,7 @@ def handler():
     answer = play_dirac_dice(starting_positions)
     
     print(f'The answer is {answer}')
+    print(f'End: {datetime.now()}')
 
 if __name__ == '__main__':
     handler()

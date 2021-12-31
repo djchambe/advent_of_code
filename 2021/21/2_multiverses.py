@@ -1,3 +1,4 @@
+from datetime import datetime
 from copy import deepcopy
 
 WEIGHTS = {
@@ -49,10 +50,10 @@ def play_dirac_dice(positions):
     while games:
         for index in range(2):
             games, wins = roll_die_and_move(games, wins, index)
-            print(f'{len(games)}, {wins}')
     return max(wins)
     
 def handler():
+    print(f'Start: {datetime.now()}')
     starting_positions = []
     with open('input.txt') as input_file:
         for line in input_file:
@@ -62,6 +63,7 @@ def handler():
     answer = play_dirac_dice(starting_positions)
     
     print(f'The answer is {answer}')
+    print(f'End: {datetime.now()}')
 
 if __name__ == '__main__':
     handler()

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def count_lit_pixels(image):
     count = 0
     for row in image:
@@ -58,6 +60,7 @@ def apply_enhancement(image, enhancement, fill_bit):
     return add_borders(output_image, image, enhancement, fill_bit)
 
 def handler():
+    print(f'Start: {datetime.now()}')
     enhancement = []
     input_image = []
     with open('input.txt') as input_file:
@@ -78,6 +81,7 @@ def handler():
     answer = count_lit_pixels(input_image)
     
     print(f'The answer is {answer}')
+    print(f'End: {datetime.now()}')
 
 if __name__ == '__main__':
     handler()

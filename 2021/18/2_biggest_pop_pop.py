@@ -1,6 +1,7 @@
 import json
 from math import ceil
 from copy import deepcopy
+from datetime import datetime
 
 def get_magnitude(number):
     while isinstance(number, list):
@@ -174,6 +175,7 @@ def perform_reduction(number):
     return number
 
 def handler():
+    print(f'Start: {datetime.now()}')
     number_list = []
     with open('input.txt') as input_file:
         for line in input_file:
@@ -191,6 +193,7 @@ def handler():
                 answer = magnitude
 
     print(f'The answer is {answer}')
+    print(f'End: {datetime.now()}')
 
 if __name__ == '__main__':
     handler()
