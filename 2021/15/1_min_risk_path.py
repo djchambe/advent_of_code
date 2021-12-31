@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def find_lowest_risks(risk_dict, start):
     unvisited = list(risk_dict.keys())
     while unvisited:
@@ -41,6 +43,7 @@ def get_risk_graph(risk_lists):
     return risk_dict, x_len, y_len
 
 def handler():
+    print(f'Start: {datetime.now()}')
     risk_lists = []
     with open('input.txt') as input_file:
         for line in input_file:
@@ -54,6 +57,7 @@ def handler():
     answer = risk_dict[x_len - 1, y_len -1]['shortest']
     
     print(f'The answer is {answer}')
+    print(f'End: {datetime.now()}')
 
 if __name__ == '__main__':
     handler()
