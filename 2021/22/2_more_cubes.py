@@ -1,4 +1,5 @@
 from copy import deepcopy
+from datetime import datetime
 
 def get_total_on_cubes(cubes_on):
     total = 0
@@ -122,6 +123,7 @@ def update_cubes(cubes_on, instruction, coordinates):
     return cubes_on
 
 def handler():
+    print(f'Start: {datetime.now()}')
     coordinates_dict = {}
     cubes_on = []
     count = 0
@@ -141,6 +143,7 @@ def handler():
     answer = get_total_on_cubes(cubes_on)
     
     print(f'The answer is {answer}')
+    print(f'End: {datetime.now()}')
 
 if __name__ == '__main__':
     handler()
